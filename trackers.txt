@@ -1,0 +1,51 @@
+
+
+time overlapped: 9 %Time Overlapped = 2.013422818791946%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: BOOSTING
+framecount : 447
+
+time overlapped: 6 %Time Overlapped = 1.342281879194631%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: MIL
+framecount : 447
+
+time overlapped: 6 %Time Overlapped = 1.342281879194631%
+time tracker failed: 2 %Time Tracker Failed = 0.44742729306487694%
+tracker type: KCF
+framecount : 447
+
+time overlapped: 34 %Time Overlapped = 7.606263982102908%
+time tracker failed: 14 %Time Tracker Failed = 3.131991051454139%
+tracker type: TLD
+framecount : 447
+
+time overlapped: 1 %Time Overlapped = 0.22371364653243847%
+time tracker failed: 62 %Time Tracker Failed = 13.870246085011187%
+tracker type: MEDIANFLOW
+framecount : 447
+
+time overlapped: 3 %Time Overlapped = 0.6711409395973155%
+time tracker failed: 1 %Time Tracker Failed = 0.22371364653243847%
+tracker type: CSRT
+framecount : 447
+
+time overlapped: 8 %Time Overlapped = 1.7897091722595078%
+time tracker failed: 24 %Time Tracker Failed = 5.369127516778524%
+tracker type: MOSSE
+framecount : 447
+
+time overlapped: 4 %Time Overlapped = 0.8948545861297539%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: BOOSTING
+framecount : 447
+
+time overlapped: 7 %Time Overlapped = 1.5659955257270695%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: BOOSTING
+framecount : 447
+
+time overlapped: 8 %Time Overlapped = 1.7897091722595078%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: BOOSTING
+framecount : 447
