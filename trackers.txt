@@ -49,3 +49,28 @@ time overlapped: 8 %Time Overlapped = 1.7897091722595078%
 time tracker failed: 0 %Time Tracker Failed = 0.0%
 tracker type: BOOSTING
 framecount : 447
+
+time overlapped: 0 %Time Overlapped = 0.0%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: MIL
+framecount : 447
+
+time overlapped: 2 %Time Overlapped = 0.44742729306487694%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: MIL
+framecount : 447
+
+time overlapped: 34 %Time Overlapped = 7.606263982102908%
+time tracker failed: 12 %Time Tracker Failed = 2.684563758389262%
+tracker type: TLD
+framecount : 447
+
+time overlapped: 6 %Time Overlapped = 1.342281879194631%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: CSRT
+framecount : 447
+
+time overlapped: 8 %Time Overlapped = 1.7897091722595078%
+time tracker failed: 22 %Time Tracker Failed = 4.921700223713646%
+tracker type: MOSSE
+framecount : 447

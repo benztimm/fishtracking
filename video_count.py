@@ -1,5 +1,7 @@
 import cv2
 import os
+
+import csv
 import sys
 if len(sys.argv) != 2:
     print("Error: Invalid arguments.")
@@ -118,7 +120,7 @@ tracker.init(frame, first_location)
 # initialize count variables
 count_no_overlap = 0
 count_tracking_failed = 0
-
+distances = []
 # since we have label for every frame, we read video with count of label_container_abs
 for i in range(len(label_container_abs)):
     ret, frame = video.read()
@@ -139,8 +141,8 @@ for i in range(len(label_container_abs)):
         centroid_x = int(label_container_abs[i][0] + label_container_abs[i][2]/2)
         centroid_y = int(label_container_abs[i][1] + label_container_abs[i][3]/2)
         cv2.circle(frame, (centroid_x, centroid_y), radius=5, color=(255, 0, 0), thickness=-1)  # The -1 thickness fills the circle
-
-        
+        distance = ((centroid_x - centroid_x_tracking)**2 + (centroid_y - centroid_y_tracking)**2)**0.5
+        distances.append(distance)        
         if not is_centroid_overlapping((x, y, w, h), label_container_abs[i]):
             count_no_overlap = count_no_overlap + 1
             # Delete the existing tracker and create a new one
@@ -164,12 +166,18 @@ for i in range(len(label_container_abs)):
         centroid_y = int(label_container_abs[i][1] + label_container_abs[i][3]/2)
         cv2.circle(frame, (centroid_x, centroid_y), radius=5, color=(255, 0, 0), thickness=-1)  # The -1 thickness fills the circle
         count_tracking_failed = count_tracking_failed + 1
+        distances.append(0)  
 
     
     cv2.putText(frame, f'No Overlap Count: {count_no_overlap}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
     cv2.putText(frame, f'Tracking Failed Count {count_tracking_failed}', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
     cv2.putText(frame, f'Tracker Type: {tracker_type_name[tracker_type]}', (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
-    frame_resized = cv2.resize(frame, (2576,1610))
+    
+    #macbook pro resolution
+    #frame_resized = cv2.resize(frame, (2576,1610))
+    
+    #pc resolution
+    frame_resized = cv2.resize(frame, (1600,900))
 
     cv2.imshow(tracker_type_name[tracker_type], frame_resized)
     if cv2.waitKey(30) & 0xFF == 27:  # Press 'Esc' to exit
@@ -206,10 +214,14 @@ def write_if_not_exists(filename, text):
         f.write(text)
         print(f"Tracker details written to {filename}.")
 
+if count_no_overlap or count_tracking_failed:
+    filename = "trackers.txt"
+    framecount = len(label_container_abs)+1
+    write_tracker(filename, tracker_type_name[tracker_type], count_no_overlap, count_tracking_failed,framecount)
 
-filename = "trackers.txt"
-framecount = len(label_container_abs)+1
-write_tracker(filename, tracker_type_name[tracker_type], count_no_overlap, count_tracking_failed,framecount)
-
-
-
+if len(label_container_abs) == len(distances):
+    with open(f'distances_{tracker_type_name[tracker_type]}.csv', 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['Frame Number', 'Distance'])  # Header row
+        for idx, distance in enumerate(distances, start=1):  
+            csvwriter.writerow([idx, distance])
