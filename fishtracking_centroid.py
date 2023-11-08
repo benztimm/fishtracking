@@ -3,6 +3,8 @@ import os
 
 import csv
 import sys
+import time
+
 if len(sys.argv) != 2:
     print("Error: Invalid arguments.")
     print("Usage: python video_count.py tracker_type")
@@ -110,6 +112,7 @@ label_container_abs = [convert_to_absolute(coords, frame.shape) for coords in la
 # get first label and remove it from the container
 first_location = label_container_abs.pop(0)
 
+start_time = time.perf_counter()
 # Create a tracker object
 tracker = create_tracker(tracker_type)
 
@@ -183,6 +186,9 @@ for i in range(len(label_container_abs)):
     if cv2.waitKey(30) & 0xFF == 27:  # Press 'Esc' to exit
         break
 cv2.destroyAllWindows()
+end_time = time.perf_counter()
+elapsed_time = end_time - start_time
+time_opt = f"The code ran for {tracker_type_name[tracker_type]} is {elapsed_time} seconds\n"
 
 
 
@@ -214,14 +220,27 @@ def write_if_not_exists(filename, text):
         f.write(text)
         print(f"Tracker details written to {filename}.")
 
+def write_time(filename, time_opt):
+    
+    template = f"""
+time_opt: {time_opt}
+"""
+    # Check and write if the tracker details don't already exist
+    write_if_not_exists(filename, template)
+
+
+write_time("elapsed_time_centroid.txt", time_opt)
+
 if count_no_overlap or count_tracking_failed:
     filename = "trackers_centroid.txt"
     framecount = len(label_container_abs)+1
-    write_tracker(filename, tracker_type_name[tracker_type], count_no_overlap, count_tracking_failed,framecount)
+    #write_tracker(filename, tracker_type_name[tracker_type], count_no_overlap, count_tracking_failed,framecount)
 
+"""
 if len(label_container_abs) == len(distances):
     with open(f'distances_{tracker_type_name[tracker_type]}.csv', 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(['Frame Number', 'Distance'])  # Header row
         for idx, distance in enumerate(distances, start=1):  
             csvwriter.writerow([idx, distance])
+"""

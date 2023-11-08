@@ -1,0 +1,21 @@
+
+time_opt: The code ran for BOOSTING is 48.71042470000066 seconds
+
+
+time_opt: The code ran for MIL is 49.1327867 seconds
+
+
+time_opt: The code ran for KCF is 30.96384760000001 seconds
+
+
+time_opt: The code ran for TLD is 83.37992769999983 seconds
+
+
+time_opt: The code ran for MEDIANFLOW is 21.452975299998798 seconds
+
+
+time_opt: The code ran for CSRT is 53.84297119999974 seconds
+
+
+time_opt: The code ran for MOSSE is 22.832149600000776 seconds
+
