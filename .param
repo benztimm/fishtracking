@@ -1,0 +1,90 @@
+**CSRT Tracker**: 
+- **Foundation**: Employs Discriminative Correlation Filter with Channel 
+    and Spatial Reliability to adjust the filter's response 
+    based on spatial reliability.
+- **Implementation**: The tracker uses features like HoGs 
+    (Histogram of Oriented Gradients) and color attributes to 
+    improve tracking accuracy, especially for non-rectangular objects.
+- **Trade-offs**: Provides higher accuracy but at the cost of a 
+    lower frame rate compared to some other trackers.
+Default parameters for TrackerCSRT:
+    admm_iterations: 4
+    background_ratio: 2
+    cheb_attenuation: 45.0
+    filter_lr: 0.019999999552965164
+    gsl_sigma: 1.0
+    histogram_bins: 16
+    histogram_lr: 0.03999999910593033
+    hog_clip: 0.20000000298023224
+    hog_orientations: 9.0
+    kaiser_alpha: 3.75
+    num_hog_channels_used: 18
+    number_of_scales: 33
+    padding: 3.0
+    psr_threshold: 0.03500000014901161
+    scale_lr: 0.02500000037252903
+    scale_model_max_area: 512.0
+    scale_sigma_factor: 0.25
+    scale_step: 1.0199999809265137
+    template_size: 200.0
+    use_channel_weights: True
+    use_color_names: True
+    use_gray: True
+    use_hog: True
+    use_rgb: False
+    use_segmentation: True
+    weights_lr: 0.019999999552965164
+    window_function: hann
+
+
+**KCF Tracker**: 
+- **Foundation**: Stands for Kernelized Correlation Filters. 
+    This tracker expands on the ideas of BOOSTING and MIL with the computational efficiency 
+    of Fast Fourier Transforms.
+- **Implementation**: Utilizes properties of circulant matrices, allowing all shifts of 
+    a sample to be represented, enabling faster detection through correlation.
+- **Trade-offs**: Faster and more accurate than BOOSTING and MIL, but it 
+    still struggles with full occlusions and significant scale changes.
+Default parameters for TrackerKCF:
+    compress_feature: True
+    compressed_size: 2
+    desc_npca: 1
+    desc_pca: 2
+    detect_thresh: 0.5
+    interp_factor: 0.07500000298023224
+    lambda_: 9.999999747378752e-05
+    max_patch_size: 6400
+    output_sigma_factor: 0.0625
+    pca_learning_rate: 0.15000000596046448
+    resize: True
+    sigma: 0.20000000298023224
+    split_coeff: True
+    wrap_kernel: False
+
+
+
+**MIL Tracker**: 
+- **Foundation**: Improves upon BOOSTING by using Multiple Instance Learning 
+    (MIL) to reduce the risk of drifting.
+- **Implementation**: Instead of treating all non-object regions as 
+    negatives, MIL allows some to be ambiguous, which helps in cases 
+    where the object is partially occluded.
+- **Trade-offs**: Better at handling occlusions compared to BOOSTING 
+    but is still not robust against full occlusions 
+    and might have slower response times.
+Default parameters for TrackerMIL:
+    featureSetNumFeatures: 250
+    samplerSearchWinSize: 25.0
+    samplerTrackInRadius: 4.0
+    samplerTrackMaxNegNum: 65
+    samplerTrackMaxPosNum: 100000
+
+https://www.nature.com/articles/s41598-023-30930-3
+
+Possible metrics:
+IoU: Intersection over Union
+False Positive Rate: area of false positive / area of tracker
+Distance: distance between center of tracker and center of object (already in the code)
+time: time to process all frames (already in the code) might change to time per frame
+percent of frames overflowing: number of frames where the tracker is overflowing / total number of frames
+percent of failed frames: number of frames where the tracker failed / total number of frames

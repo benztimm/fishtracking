@@ -19,3 +19,51 @@ time_opt: The code ran for CSRT is 49.586725999999544 seconds
 
 time_opt: The code ran for MOSSE is 22.44447389999914 seconds
 
+
+time_opt: The code ran for BOOSTING is 8.12274849996902 seconds
+
+
+time_opt: The code ran for BOOSTING is 47.506516300025396 seconds
+
+
+time_opt: The code ran for BOOSTING is 50.13886480004294 seconds
+
+
+time_opt: The code ran for BOOSTING is 50.76613369997358 seconds
+
+
+time_opt: The code ran for BOOSTING is 42.68368230003398 seconds
+
+
+time_opt: The code ran for BOOSTING is 7.299128400045447 seconds
+
+
+time_opt: The code ran for CSRT is 46.86821480002254 seconds
+
+
+time_opt: The code ran for CSRT is 42.82893799996236 seconds
+
+
+time_opt: The code ran for CSRT is 32.69341139995959 seconds
+
+
+time_opt: The code ran for CSRT is 49.57404709997354 seconds
+
+
+time_opt: The code ran for CSRT is 11.110428799991496 seconds
+
+
+time_opt: The code ran for CSRT is 47.76746000000276 seconds
+
+
+time_opt: The code ran for CSRT is 51.19940550002502 seconds
+
+
+time_opt: The code ran for CSRT is 47.85278529999778 seconds
+
+
+time_opt: The code ran for CSRT is 49.645026799989864 seconds
+
+
+time_opt: The code ran for CSRT is 53.00919780001277 seconds
+

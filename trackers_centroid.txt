@@ -1,0 +1,12 @@
+DEFAULT
+time overlapped: 6 %Time Overlapped = 1.342281879194631%
+time tracker failed: 0 %Time Tracker Failed = 0.0%
+tracker type: CSRT
+framecount : 447
+
+
+TEST FINE-TUNE
+time overlapped: 4 %Time Overlapped = 0.8948545861297539%
+time tracker failed: 2 %Time Tracker Failed = 0.44742729306487694%
+tracker type: CSRT
+framecount : 447

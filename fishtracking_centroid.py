@@ -25,6 +25,14 @@ relative_path = 'labels'
 label_folder = os.path.join(absolute_path, relative_path)
 
 def create_tracker(tracker_type):
+    param_handler = cv2.TrackerCSRT_Params()
+    params = {
+    'admm_iterations': 1,
+    'background_ratio': 10,    
+    }
+    for key, val in params.items():
+        setattr(param_handler, key, val)
+        
     if tracker_type == 0:
         return cv2.legacy.TrackerBoosting.create()
     if tracker_type == 1:
@@ -36,7 +44,15 @@ def create_tracker(tracker_type):
     if tracker_type == 4:
         return cv2.legacy.TrackerMedianFlow.create()
     if tracker_type == 5:
-        return cv2.legacy.TrackerCSRT.create()
+        param_handler = cv2.TrackerCSRT.Params()
+        params = {
+        'admm_iterations': 1,
+        'background_ratio': 10,    
+        }
+        for key, val in params.items():
+            setattr(param_handler, key, val)
+        tracker = cv2.TrackerCSRT.create(param_handler)
+        return tracker
     if tracker_type == 6:
         return cv2.legacy.TrackerMOSSE.create()
 
@@ -234,7 +250,7 @@ write_time("elapsed_time_centroid.txt", time_opt)
 if count_no_overlap or count_tracking_failed:
     filename = "trackers_centroid.txt"
     framecount = len(label_container_abs)+1
-    #write_tracker(filename, tracker_type_name[tracker_type], count_no_overlap, count_tracking_failed,framecount)
+    write_tracker(filename, tracker_type_name[tracker_type], count_no_overlap, count_tracking_failed,framecount)
 
 """
 if len(label_container_abs) == len(distances):

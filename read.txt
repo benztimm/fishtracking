@@ -1,0 +1,40 @@
+To write a meaningful report on these trackers, you need to delve into the theoretical foundation of each tracker, understand their implementation, and grasp the trade-offs they present in various tracking scenarios. Here's a more detailed look into each one:
+
+**BOOSTING Tracker**: 
+- **Foundation**: Based on the online AdaBoost algorithm to differentiate the object from the background.
+- **Implementation**: Utilizes a classifier that is updated with the object's features and the background.
+- **Trade-offs**: Can be prone to drifting and doesn't handle occlusion well. It's also not the best choice for real-time applications due to slower processing times.
+
+**MIL Tracker**: 
+- **Foundation**: Improves upon BOOSTING by using Multiple Instance Learning (MIL) to reduce the risk of drifting.
+- **Implementation**: Instead of treating all non-object regions as negatives, MIL allows some to be ambiguous, which helps in cases where the object is partially occluded.
+- **Trade-offs**: Better at handling occlusions compared to BOOSTING but is still not robust against full occlusions and might have slower response times.
+
+**KCF Tracker**: 
+- **Foundation**: Stands for Kernelized Correlation Filters. This tracker expands on the ideas of BOOSTING and MIL with the computational efficiency of Fast Fourier Transforms.
+- **Implementation**: Utilizes properties of circulant matrices, allowing all shifts of a sample to be represented, enabling faster detection through correlation.
+- **Trade-offs**: Faster and more accurate than BOOSTING and MIL, but it still struggles with full occlusions and significant scale changes.
+
+**TLD Tracker**: 
+- **Foundation**: The TLD framework decomposes the tracking task into tracking, learning, and detection.
+- **Implementation**: Employs a novel learning component that updates the detector over time to avoid past mistakes, which allows it to handle large appearance changes and recover from temporary failures.
+- **Trade-offs**: The tracker can produce many false positives, especially in busy scenes, leading to tracking instability.
+
+**MEDIANFLOW Tracker**: 
+- **Foundation**: This tracker is based on tracking the object in forward and backward directions and then comparing the discrepancies.
+- **Implementation**: It uses a Forward-Backward error to detect and rectify tracking failures by ensuring that the forward trajectory and the backward trajectory align.
+- **Trade-offs**: Excellent at detecting tracking failures but fails in scenarios with large, unpredictable motions.
+
+**MOSSE Tracker**: 
+- **Foundation**: Uses Minimum Output Sum of Squared Error (MOSSE) filters for robust correlation-based tracking.
+- **Implementation**: Initializes stable correlation filters with a single frame and is robust to changes in lighting, scale, and non-rigid deformations.
+- **Trade-offs**: Offers high frame rates and robust tracking under various conditions but is not as advanced as deep learning-based methods in terms of accuracy.
+
+**CSRT Tracker**: 
+- **Foundation**: Employs Discriminative Correlation Filter with Channel and Spatial Reliability to adjust the filter's response based on spatial reliability.
+- **Implementation**: The tracker uses features like HoGs (Histogram of Oriented Gradients) and color attributes to improve tracking accuracy, especially for non-rectangular objects.
+- **Trade-offs**: Provides higher accuracy but at the cost of a lower frame rate compared to some other trackers.
+
+In your report, you'd need to discuss how each tracker works, the types of scenarios each is best suited for, and the limitations they have. You can elaborate on the computational aspects (like the use of FFT in KCF for speed) and the practical implications (like how TLD can re-acquire an object after it has been lost).
+
+It's also essential to discuss the evolution of these trackers, how each new tracker builds upon the knowledge from previous algorithms, and how they contribute to the field of object tracking. You would also need to compare these traditional trackers with modern deep learning approaches, which can offer significant improvements in accuracy and robustness at the cost of computational resources.
