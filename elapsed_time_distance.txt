@@ -25,3 +25,6 @@ time_opt: The code ran for BOOSTING is 50.06368790000852 seconds
 
 time_opt: The code ran for BOOSTING is 47.28288349999639 seconds
 
+
+time_opt: The code ran for BOOSTING is 52.02247670000361 seconds
+

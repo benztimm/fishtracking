@@ -85,7 +85,7 @@ def is_centroid_overlapping(rect1, rect2):
     # Check if the centroid of rect2 lies within the boundaries of rect1
     return (x1 <= centroid_x2 <= (x1 + w1)) and (y1 <= centroid_y2 <= (y1 + h1))
 
-def compute_dice_coefficient(boxA, boxB):
+def compute_dice_coefficient(boxA, boxB,frame):
     # Determine the (x, y)-coordinates of the intersection rectangle
     xA = max(boxA[0], boxB[0])
     yA = max(boxA[1], boxB[1])
@@ -98,7 +98,7 @@ def compute_dice_coefficient(boxA, boxB):
     # Compute the area of both the prediction and ground-truth rectangles
     boxAArea = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
     boxBArea = (boxB[2] - boxB[0]) * (boxB[3] - boxB[1])
-
+    cv2.rectangle(frame, (xA, yA), (xB, yB), (255, 255, 255), 2)
     # Compute the Dice Coefficient
     dice = 2 * interArea / float(boxAArea + boxBArea)
 
@@ -168,7 +168,7 @@ for i in range(len(label_container_abs)):
         tracker_box = (x, y, x+w, y+h)
         ground_truth_box = (label_container_abs[i][0], label_container_abs[i][1], label_container_abs[i][0] + label_container_abs[i][2], label_container_abs[i][1] + label_container_abs[i][3])
   
-        dice_coefficient = compute_dice_coefficient(tracker_box, ground_truth_box)
+        dice_coefficient = compute_dice_coefficient(tracker_box, ground_truth_box, frame)
         total_dice_coefficient += dice_coefficient
         if distance > 80:
             count_no_overlap = count_no_overlap + 1
