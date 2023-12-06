@@ -85,6 +85,25 @@ def is_centroid_overlapping(rect1, rect2):
     # Check if the centroid of rect2 lies within the boundaries of rect1
     return (x1 <= centroid_x2 <= (x1 + w1)) and (y1 <= centroid_y2 <= (y1 + h1))
 
+def compute_dice_coefficient(boxA, boxB):
+    # Determine the (x, y)-coordinates of the intersection rectangle
+    xA = max(boxA[0], boxB[0])
+    yA = max(boxA[1], boxB[1])
+    xB = min(boxA[2], boxB[2])
+    yB = min(boxA[3], boxB[3])
+
+    # Compute the area of intersection rectangle
+    interArea = max(0, xB - xA) * max(0, yB - yA)
+
+    # Compute the area of both the prediction and ground-truth rectangles
+    boxAArea = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
+    boxBArea = (boxB[2] - boxB[0]) * (boxB[3] - boxB[1])
+
+    # Compute the Dice Coefficient
+    dice = 2 * interArea / float(boxAArea + boxBArea)
+
+    return dice
+
 
 
 # load labels from file to array
@@ -123,6 +142,7 @@ tracker.init(frame, first_location)
 count_no_overlap = 0
 count_tracking_failed = 0
 distances = []
+total_dice_coefficient = 0
 # since we have label for every frame, we read video with count of label_container_abs
 for i in range(len(label_container_abs)):
     ret, frame = video.read()
@@ -144,7 +164,12 @@ for i in range(len(label_container_abs)):
         centroid_y = int(label_container_abs[i][1] + label_container_abs[i][3]/2)
         cv2.circle(frame, (centroid_x, centroid_y), radius=5, color=(255, 0, 0), thickness=-1)  # The -1 thickness fills the circle
         distance = ((centroid_x - centroid_x_tracking)**2 + (centroid_y - centroid_y_tracking)**2)**0.5
-        distances.append(distance)        
+        distances.append(distance)  
+        tracker_box = (x, y, x+w, y+h)
+        ground_truth_box = (label_container_abs[i][0], label_container_abs[i][1], label_container_abs[i][0] + label_container_abs[i][2], label_container_abs[i][1] + label_container_abs[i][3])
+  
+        dice_coefficient = compute_dice_coefficient(tracker_box, ground_truth_box)
+        total_dice_coefficient += dice_coefficient
         if distance > 80:
             count_no_overlap = count_no_overlap + 1
             # Delete the existing tracker and create a new one
@@ -169,6 +194,7 @@ for i in range(len(label_container_abs)):
         cv2.circle(frame, (centroid_x, centroid_y), radius=5, color=(255, 0, 0), thickness=-1)  # The -1 thickness fills the circle
         count_tracking_failed = count_tracking_failed + 1
         distances.append(1000)  
+        total_dice_coefficient += 0
 
     
     cv2.putText(frame, f'No Overlap Count: {count_no_overlap}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
@@ -190,7 +216,7 @@ elapsed_time = end_time - start_time
 time_opt = f"The code ran for {tracker_type_name[tracker_type]} is {elapsed_time} seconds\n"
 
 
-
+print(f'Total Dice Coefficient: {total_dice_coefficient/447}')
 print(f'No Overlap Count: {count_no_overlap}')
 print(f'Tracking Failed Count {count_tracking_failed}')
 
