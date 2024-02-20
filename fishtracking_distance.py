@@ -153,7 +153,7 @@ for i in range(len(label_container_abs)):
     if success:
         (x, y, w, h) = [int(v) for v in box]
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        cv2.putText(frame, f'{tracker_type_name[tracker_type]} Tracker', (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+        cv2.putText(frame, f"{tracker_type_name[tracker_type]} Tracker", (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
         centroid_x_tracking = int(x + w/2)
         centroid_y_tracking = int(y + h/2)
         cv2.circle(frame, (centroid_x_tracking, centroid_y_tracking), radius=5, color=(0, 255, 0), thickness=-1)  # The -1 thickness fills the circle
