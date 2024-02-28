@@ -173,13 +173,16 @@ for i in range(len(label_container_abs)):
             tracker[j] = create_tracker(j)
             x_new, y_new, w_new, h_new = label_container_abs[i]
             tracker[j].init(frame, (x_new, y_new, w_new, h_new))
+            
+    # plot ground truth
     centroid_x = int(label_container_abs[i][0] + label_container_abs[i][2]/2)
     centroid_y = int(label_container_abs[i][1] + label_container_abs[i][3]/2)
     cv2.putText(frame, f'Real Fish Location', (label_container_abs[i][0], label_container_abs[i][1]-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color=(0,0,0), thickness=2)
     cv2.rectangle(frame, (label_container_abs[i][0],label_container_abs[i][1]), (label_container_abs[i][0]+label_container_abs[i][2], label_container_abs[i][1]+label_container_abs[i][3]), color=(0,0,0), thickness=2)
     cv2.circle(frame, (centroid_x, centroid_y), radius=5, color=(0,0,0), thickness=-1)  # The -1 thickness fills the circle
     cv2.putText(frame, f'Real Fish Centroid', (centroid_x, centroid_y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color=(0,0,0), thickness=2)
-    #
+    
+    #plot average centroid
     clusters = cluster_centroids(centroid_array, min_distance=20)
     print(f'Clusters: {clusters}')
     avg_centroid = calculate_combined_average(clusters)
@@ -187,14 +190,12 @@ for i in range(len(label_container_abs)):
     centroid_x_avg, centroid_y_avg = avg_centroid
     
     # use w, h from ground truth
-    
     top_left_x = int(centroid_x_avg - label_container_abs[i][2] / 2)
     top_left_y = int(centroid_y_avg - label_container_abs[i][3] / 2)
     
     cv2.circle(frame, (centroid_x_avg, centroid_y_avg), radius=5, color=(255, 255, 255), thickness=-1)  # The -1 thickness fills the circle
     cv2.rectangle(frame, (top_left_x, top_left_y), (top_left_x + label_container_abs[i][2], top_left_y + label_container_abs[i][3]), (255, 255, 255), 2)
     cv2.putText(frame, f'Average', (top_left_x, top_left_y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color=(255,255,255), thickness=2)
-    
     
     """
     max_width = max_width // dividor
@@ -217,6 +218,7 @@ for i in range(len(label_container_abs)):
         break
 cv2.destroyAllWindows()
 
+"""
 height, width = frame_container[0].shape[:2]
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4
 fps = 10.0  # Frames per second
@@ -224,3 +226,11 @@ out = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 for frame in frame_container:
     out.write(frame)
 out.release()
+"""
+
+def plot_rec():
+    return None
+def plot_centroid():
+    return None
+# change cluster to accept [x,y,w,h] instead of (x,y)
+# implement weighted for tracker

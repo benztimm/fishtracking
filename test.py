@@ -155,9 +155,19 @@ for i in range(len(label_container_abs)):
         x_new, y_new, w_new, h_new = label_container_abs[i]
         tracker.init(frame, (x_new, y_new, w_new, h_new))
     
+    frame_container.append(frame)
     cv2.imshow('Frame', frame)
     if cv2.waitKey(30) & 0xFF == 27:  # Press 'Esc' to exit
         break
 cv2.destroyAllWindows()
+
+
+height, width = frame_container[0].shape[:2]
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4
+fps = 10.0  # Frames per second
+out = cv2.VideoWriter('weirdoutput.mp4', fourcc, fps, (width, height))
+for frame in frame_container:
+    out.write(frame)
+out.release()
 
 
