@@ -257,12 +257,13 @@ for i in range(len(label_container_abs)):
         break
 cv2.destroyAllWindows()
 
+
 print(f'length of frame container: {len(frame_container)}, length of label container: {len(label_container_abs)+1}')
 if len(frame_container) == len(label_container_abs)+1:
     height, width = frame_container[0].shape[:2]
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4
     fps = 10.0  # Frames per second
-    out = cv2.VideoWriter('fused_output2_eclipse_fix.mp4', fourcc, fps, (width, height))
+    out = cv2.VideoWriter('fused_output_result.mp4', fourcc, fps, (width, height))
     for frame in frame_container:
         out.write(frame)
     out.release()
